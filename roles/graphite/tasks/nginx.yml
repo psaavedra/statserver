@@ -1,13 +1,10 @@
-- name: set file permissions
-  command: /bin/chown -R {{ nginx_user }}:{{ nginx_group }} /opt/graphite
-
-- name: copy nginx configuration
+- name: nginx | copy configuration
   template: src=nginx-graphite.conf.j2
             dest=/etc/nginx/sites-available/graphite.conf
             owner={{ nginx_user }}
             group={{ nginx_group }}
 
-- name: link nginx configuration
+- name: nginx | link configuration
   file: src=/etc/nginx/sites-available/graphite.conf
         dest=/etc/nginx/sites-enabled/graphite.conf
         state=link

@@ -1,0 +1,9 @@
+- name: apache2 | copy site configuration
+  template: src=apache2-graphite.conf.j2
+            dest=/etc/apache2/sites-available/graphite.conf
+            mode=0644
+
+- name: apache2 | enable site
+  command: a2ensite graphite
+  notify:
+    - restart apache2

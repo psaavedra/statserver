@@ -1,2 +1,2 @@
 - name: install npm
-  apt: pkg=npm state=latest update_cache=yes
+  apt: pkg=npm state=installed

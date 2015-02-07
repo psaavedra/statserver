@@ -1,0 +1,26 @@
+- name: install
+  apt: name=graphite-carbon state=installed
+
+- name: copy configuration
+  template: src=carbon.conf.j2
+            dest=/etc/carbon/carbon.conf
+            mode=0644
+
+- name: configure storage schema
+  template: src=storage-schemas.conf.j2
+            dest=/etc/carbon/storage-schemas.conf
+            mode=0644
+
+- name: configure storage aggregation
+  template: src=storage-aggregation.conf.j2
+            dest=/etc/carbon/storage-aggregation.conf
+            mode=0644
+
+
+- name: enable carbon
+  copy: content='CARBON_CACHE_ENABLED=true'
+        dest=/etc/default/graphite-carbon
+        mode=0644
+
+- name: start service & enable on boot
+  service: name=carbon-cache state=started enabled=yes

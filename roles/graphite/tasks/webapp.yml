@@ -1,0 +1,10 @@
+- name: install
+  apt: name=graphite-web state=installed
+
+- name: copy configuration
+  template: src=local_settings.py.j2
+            dest=/etc/graphite/local_settings.py
+            mode=0644
+
+- name: syncdb for graphite
+  shell: graphite-manage syncdb --noinput

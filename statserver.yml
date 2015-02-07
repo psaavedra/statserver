@@ -2,28 +2,26 @@
 - hosts: all
   sudo: True
   vars:
+    apache2:
+      port: 8080
     graphite:
-      version: master
-      timezone: Europe/Paris
-      workers: 4
-      host: 0.0.0.0
+      timezone: Etc/UTC
       server: graphite.local
-      secret_key: 'ob3sow^ik#4q(k5*tgw&6j+osyr^@0jus$yd+-#^&^d#%yim1!'
+      secret_key: '7/C1yN7PINoicYzKyx2mR2TdMLJdDXTi18rbHGFiX78='
+      db:
+        name: graphite
+        user: graphite
+        password: graphite
     carbon:
-      host: 0.0.0.0
       ssl: no
-    db_graphite:
-      name: graphite
-      user: graphite
-      password: graphite
     sentry:
       server: sentry.local
       url: http://sentry.local
-      secret_key: 'my69eAMYjzqtmfaRJ107MeXCYDTaxQdNZPr8YOe/zOV5pIUoZa5biA=='
-    db_sentry:
-      name: sentry
-      user: sentry
-      password: sentry
+      secret_key: 'DR03hvVY8ouSfw38hkUp24C/5bZj6vIi3cpmwqCFRkw='
+      db:
+        name: sentry
+        user: sentry
+        password: sentry
     superuser_sentry:
       username: admin
       email: admin@example.com
@@ -34,14 +32,17 @@
       platform: python
   roles:
     - common
-    - python
+
     - supervisor
+    - apache2
     - role: nginx
       nginx_sites: none
-    - postgres
+    - postgresql
+    - carbon
     - graphite
-    - nodejs
-    - npm
-    - statsd
-    - sentry
+#    - python
+#    - nodejs
+#    - npm
+#    - statsd
+#    - sentry
 

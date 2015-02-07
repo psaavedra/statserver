@@ -1,0 +1,11 @@
+- name: install
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - postgresql
+    - libpq-dev  # headers
+
+- name: install python bindings
+  apt: name=python-psycopg2 state=installed
+
+- name: start service & enable on boot
+  service: name=postgresql state=restarted enabled=yes

@@ -1,5 +1,5 @@
 - name: install python-related packages
-  apt: pkg={{ item }} state=latest
+  apt: pkg={{ item }} state=installed
   with_items:
     - python
     - python-dev

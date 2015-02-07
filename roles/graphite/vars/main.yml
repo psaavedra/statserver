@@ -1,3 +1,2 @@
-venv: /opt/graphite/venv
 nginx_user: www-data
 nginx_group: www-data

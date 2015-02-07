@@ -1,2 +1,2 @@
 - name: install nodejs
-  apt: pkg=nodejs state=latest update_cache=yes
+  apt: pkg=nodejs state=installed
