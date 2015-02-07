@@ -1,4 +1,4 @@
-- name: ensure sentry directory exists
+- name: ensure directories exist
   file:
     path: "{{ item }}"
     state: directory
@@ -10,43 +10,25 @@
   apt: name={{ item }}
   with_items: [libxml2-dev,libxslt1-dev]
 
-- name: install sentry and create virtualenv if needed
+- name: install and create virtualenv if needed
   pip:
     name: sentry[postgres]
     virtualenv: "{{ venv }}"
     virtualenv_site_packages: no
 
-- name: copy sentry configuration
+- name: create exec script in venv
+  template: src=venv_exec.j2 dest={{ venv }}/exec mode=755
+
+- name: copy configuration
   template: src=sentry_conf.py.j2
             dest=/etc/sentry/conf.py
   notify: restart nginx
 
-- name: copy nginx configuration for sentry
-  template: src=nginx-sentry.conf.j2
-            dest=/etc/nginx/sites-available/sentry.conf
-            owner={{ nginx_user }}
-            group={{ nginx_group }}
-
-- name: link nginx configuration for sentry
-  file: src=/etc/nginx/sites-available/sentry.conf
-        dest=/etc/nginx/sites-enabled/sentry.conf
-        state=link
-        owner={{ nginx_user }}
-        group={{ nginx_group }}
-  notify:
-    - restart nginx
-
-- name: copy supervisor configuration for sentry
-  template: src=supervisor-sentry.conf.j2
-            dest=/etc/supervisor/conf.d/sentry.conf
-  notify:
-    - reload supervisor
-
-- name: create exec script in venv
-  template: src=venv_exec.j2 dest={{ venv }}/exec mode=755
-
-- name: sentry upgrade
+- name: upgrade
   command: "{{ venv }}/exec sentry --config=/etc/sentry/conf.py upgrade"
   notify:
     - restart nginx
     - reload supervisor
+
+- include: nginx.yml
+- include: supervisor.yml

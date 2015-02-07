@@ -1,0 +1,5 @@
+- name: copy supervisor configuration
+  template: src=supervisor-sentry.conf.j2
+            dest=/etc/supervisor/conf.d/sentry.conf
+  notify:
+    - reload supervisor
