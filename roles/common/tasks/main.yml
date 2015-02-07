@@ -1,5 +1,5 @@
 ---
-- name: install common packages debian/ubuntu
+- name: install common packages
   apt: pkg={{ item }} state=latest update_cache=yes
   with_items:
     - build-essential

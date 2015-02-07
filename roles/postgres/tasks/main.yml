@@ -1,4 +1,4 @@
-- name: install postgresql packages debian/ubuntu
+- name: install postgresql packages
   apt: pkg={{ item }} state=latest
   with_items:
     - postgresql

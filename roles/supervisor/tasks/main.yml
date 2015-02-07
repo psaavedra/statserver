@@ -1,4 +1,4 @@
-- name: install supervisor debian/ubuntu
+- name: install supervisor
   apt: pkg=supervisor state=latest
 
 - name: ensure supervisor conf.d directory exists

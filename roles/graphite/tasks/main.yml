@@ -1,4 +1,4 @@
-- name: install required packages for graphite debian/ubuntu
+- name: install required packages for graphite
   apt: pkg={{ item }} state=latest
   with_items:
     - memcached
