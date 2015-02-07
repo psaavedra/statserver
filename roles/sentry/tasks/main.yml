@@ -27,5 +27,6 @@
     - restart nginx
     - reload supervisor
 
+- include: setup.yml
 - include: nginx.yml
 - include: supervisor.yml
