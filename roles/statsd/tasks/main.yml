@@ -6,5 +6,5 @@
 
 - name: copy supervisor configuration for statsd
   template: src=supervisor-statsd.conf.j2 dest=/etc/supervisor/conf.d/statsd.conf
-  notify: 
+  notify:
     - reload supervisor

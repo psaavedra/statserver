@@ -18,13 +18,13 @@ The variables that can be passed to this role and a brief description about
 them are as follows.
 
     # The max clients allowed
-    nginx_max_clients: 512                                
+    nginx_max_clients: 512
 
     # A hash of the http paramters. Note that any
     # valid nginx http paramters can be added here.
     # (see the nginx documentation for details.)
-    nginx_http_params:                                    
-      sendfile: "on"                                      
+    nginx_http_params:
+      sendfile: "on"
       tcp_nopush: "on"
       tcp_nodelay: "on"
       keepalive_timeout: "65"
@@ -34,8 +34,8 @@ them are as follows.
     # A list of hashs that define the servers for nginx,
     # as with http parameters. Any valid server parameters
     # can be defined here.
-    nginx_sites:                                         
-     - server:                                           
+    nginx_sites:
+     - server:
         file_name: foo
         listen: 8080
         server_name: localhost
@@ -71,7 +71,7 @@ sites configured.
       roles:
       - {role: nginx,
          nginx_http_params: { tcp_nodelay: "on",
-                              error_log: "/var/log/nginx/error.log"}, 
+                              error_log: "/var/log/nginx/error.log"},
                               nginx_sites: none }
 
 Note: Please make sure the HTTP directives passed are valid, as this role

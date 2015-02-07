@@ -10,4 +10,4 @@ ubuntu_pkg:
   - python-selinux
   - nginx
 
-  
+

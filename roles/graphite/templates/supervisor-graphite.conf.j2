@@ -5,7 +5,7 @@ autostart=true
 autorestart=true
 stopsignal=QUIT
 user={{ nginx_user }}
- 
+
 [program:carbon-cache]
 command=/opt/graphite/bin/python /opt/graphite/bin/carbon-cache.py --debug start
 process_name=%(program_name)s

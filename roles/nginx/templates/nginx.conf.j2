@@ -1,8 +1,8 @@
 #{{ ansible_managed }}
-{% if ansible_os_family == 'RedHat' %} 
+{% if ansible_os_family == 'RedHat' %}
 user              nginx;
 {% endif %}
-{% if ansible_os_family == 'Debian' %} 
+{% if ansible_os_family == 'Debian' %}
 user              www-data;
 {% endif %}
 

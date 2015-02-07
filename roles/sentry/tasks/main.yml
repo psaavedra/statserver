@@ -14,32 +14,32 @@
     virtualenv_site_packages: no
 
 - name: copy sentry configuration
-  template: src=sentry_conf.py.j2 
+  template: src=sentry_conf.py.j2
             dest=/var/sentry/sentry_conf.py
   notify: restart nginx
 
 - name: copy nginx configuration for sentry
-  template: src=nginx-sentry.conf.j2 
-            dest=/etc/nginx/sites-available/sentry.conf 
-            owner={{ nginx_user }} 
+  template: src=nginx-sentry.conf.j2
+            dest=/etc/nginx/sites-available/sentry.conf
+            owner={{ nginx_user }}
             group={{ nginx_group }}
 
 - name: link nginx configuration for sentry
-  file: src=/etc/nginx/sites-available/sentry.conf 
-        dest=/etc/nginx/sites-enabled/sentry.conf 
-        state=link 
-        owner={{ nginx_user }} 
+  file: src=/etc/nginx/sites-available/sentry.conf
+        dest=/etc/nginx/sites-enabled/sentry.conf
+        state=link
+        owner={{ nginx_user }}
         group={{ nginx_group }}
   notify:
     - restart nginx
 
 - name: copy supervisor configuration for sentry
-  template: src=supervisor-sentry.conf.j2 
+  template: src=supervisor-sentry.conf.j2
             dest=/etc/supervisor/conf.d/sentry.conf
-  notify: 
+  notify:
     - reload supervisor
 
-# Shell executable needs to be changed because Ubuntu uses /bin/dash when invoking /bin/sh, which doesn't support source. 
+# Shell executable needs to be changed because Ubuntu uses /bin/dash when invoking /bin/sh, which doesn't support source.
 # see http://stackoverflow.com/questions/13702425/source-command-not-found-in-sh-shell
 - name: sentry upgrade
   action: shell source ve/bin/activate && sentry --config=sentry_conf.py upgrade executable=/bin/bash chdir=/var/sentry

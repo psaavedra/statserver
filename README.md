@@ -26,14 +26,14 @@ For a guide on how to do meaningful measurements in your applications, have a lo
 	* [Whisper](https://github.com/graphite-project/whisper)
 	* [The Graphite webapp](https://github.com/graphite-project/graphite-web)
 * StatsD
-* The latest stable version of **Sentry** and all of its Python dependencies 
+* The latest stable version of **Sentry** and all of its Python dependencies
 
 ## Installation instructions
 
 If you want to install this on a real server, you'll only need Ansible. Instructions for installing Ansible, [can be found on their website](http://docs.ansible.com/intro_installation.html), but I'll sum up here how I'd recommend installing Ansible:
 
 * **Linux**: Use [PIP](http://www.pip-installer.org/) to install Ansible by running `sudo pip install ansible`.
-* **OS X**: Install Ansible with Homebrew by running `brew install ansible`. Installation using Homebrew PIP (you're not using OS X's default Python, are you?) doesn't work [because of hardcoded paths](https://github.com/Homebrew/homebrew/pull/21602#issue-17540275). 
+* **OS X**: Install Ansible with Homebrew by running `brew install ansible`. Installation using Homebrew PIP (you're not using OS X's default Python, are you?) doesn't work [because of hardcoded paths](https://github.com/Homebrew/homebrew/pull/21602#issue-17540275).
 * **Windows**: Please get yourself a proper development machine. (Windows [isn't supported](http://docs.ansible.com/intro_installation.html#control-machine-requirements))
 
 If you want to try Statserver out locally, on a virtual machine, you'll need [Vagrant](http://www.vagrantup.com/) and a Virtual Machine provider of choice ([VirtualBox](https://www.virtualbox.org/) is free and works out of the box with Vagrant).
@@ -65,7 +65,7 @@ For provisioning a remote server with Sentry, StatsD and Graphite, do the follow
 
 ```bash
 # replace mystatserver.com with the domainname or IP address on which your server can be reached.
-$ echo "mystatserver.com" >> myinventory 
+$ echo "mystatserver.com" >> myinventory
 $ ansible-playbook statserver.yml -i myinventory
 ```
 
