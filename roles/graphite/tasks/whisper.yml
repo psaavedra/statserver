@@ -1,8 +1,11 @@
 - name: whisper source
-  get_url: url=https://github.com/graphite-project/whisper/archive/{{ graphite.version }}.tar.gz dest=/opt/graphite/whisper-{{ graphite.version }}.tar.gz
+  get_url: url=https://github.com/graphite-project/whisper/archive/{{ graphite.version }}.tar.gz
+           dest=/opt/graphite/whisper-{{ graphite.version }}.tar.gz
 
 - name: unarchive source
-  command: tar -xvzf /opt/graphite/whisper-{{graphite.version}}.tar.gz chdir=/opt/graphite creates=/opt/graphite/whisper-{{ graphite.version }}
+  command: tar -xvzf /opt/graphite/whisper-{{graphite.version}}.tar.gz
+           chdir=/opt/graphite creates=/opt/graphite/whisper-{{ graphite.version }}
 
 - name: install whisper
-  command: ./bin/pip install ./whisper-{{ graphite.version }}/ chdir=/opt/graphite
+  command: ./bin/pip install ./whisper-{{ graphite.version }}/
+           chdir=/opt/graphite

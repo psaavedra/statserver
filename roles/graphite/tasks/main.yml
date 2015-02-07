@@ -27,22 +27,29 @@
 - include: carbon.yml
 
 - name: graphite source
-  get_url: url=https://github.com/graphite-project/graphite-web/archive/{{ graphite.version }}.tar.gz dest=/opt/graphite/graphite-web-{{ graphite.version }}.tar.gz
+  get_url: url=https://github.com/graphite-project/graphite-web/archive/{{ graphite.version }}.tar.gz
+           dest=/opt/graphite/graphite-web-{{ graphite.version }}.tar.gz
 
 - name: unarchive source
-  command: tar -xvzf graphite-web-{{ graphite.version }}.tar.gz chdir=/opt/graphite creates=/opt/graphite/graphite-web-{{ graphite.version }}
+  command: tar -xvzf graphite-web-{{ graphite.version }}.tar.gz
+           chdir=/opt/graphite
+           creates=/opt/graphite/graphite-web-{{ graphite.version }}
 
 - name: install graphite
-  command: ./bin/pip install ./graphite-web-{{ graphite.version }}/ chdir=/opt/graphite
+  command: ./bin/pip install ./graphite-web-{{ graphite.version }}/
+           chdir=/opt/graphite
 
 - name: graphite conf
-  template: src=local_settings.py.j2 dest=/opt/graphite/webapp/graphite/local_settings.py mode=0644
+  template: src=local_settings.py.j2
+            dest=/opt/graphite/webapp/graphite/local_settings.py
+            mode=0644
 
 - name: syncdb for graphite
   shell: export PYTHONPATH=/opt/graphite/webapp/; /opt/graphite/bin/python /opt/graphite/bin/django-admin.py syncdb --noinput --settings=graphite.settings
 
 - name: graphite log folder
-  file: state=directory path=/opt/graphite/storage/log/webapp
+  file: path=/opt/graphite/storage/log/webapp
+        state=directory
 
 - include: supervisor.yml
 - include: nginx.yml

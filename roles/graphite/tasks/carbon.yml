@@ -1,17 +1,23 @@
 - name: carbon source
-  get_url: url=https://github.com/graphite-project/carbon/archive/{{ graphite.version }}.tar.gz dest=/opt/graphite/carbon-{{ graphite.version }}.tar.gz
+  get_url: url=https://github.com/graphite-project/carbon/archive/{{ graphite.version }}.tar.gz
+           dest=/opt/graphite/carbon-{{ graphite.version }}.tar.gz
 
 - name: unarchive source
-  command: tar -xvzf /opt/graphite/carbon-{{graphite.version}}.tar.gz chdir=/opt/graphite creates=/opt/graphite/carbon-{{ graphite.version }}
+  command: tar -xvzf /opt/graphite/carbon-{{graphite.version}}.tar.gz
+           chdir=/opt/graphite creates=/opt/graphite/carbon-{{ graphite.version }}
 
 - name: install carbon
-  command: ./bin/pip install ./carbon-{{ graphite.version }}/ chdir=/opt/graphite
+  command: ./bin/pip install ./carbon-{{ graphite.version }}/
+           chdir=/opt/graphite
 
 - name: configure carbon cache
-  template: src=carbon.conf.j2 dest=/opt/graphite/conf/carbon.conf mode=0644
+  template: src=carbon.conf.j2
+            dest=/opt/graphite/conf/carbon.conf mode=0644
 
 - name: configure carbon storage schema
-  template: src=storage-schemas.conf.j2 dest=/opt/graphite/conf/storage-schemas.conf mode=0644
+  template: src=storage-schemas.conf.j2
+            dest=/opt/graphite/conf/storage-schemas.conf mode=0644
 
 - name: configure carbon storage aggregation
-  template: src=storage-aggregation.conf.j2 dest=/opt/graphite/conf/storage-aggregation.conf mode=0644
+  template: src=storage-aggregation.conf.j2
+            dest=/opt/graphite/conf/storage-aggregation.conf mode=0644
