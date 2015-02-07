@@ -1,6 +1,6 @@
 - name: ensure directories exist
   file:
-    path: {{ sentry_dir }}
+    path: "{{ sentry_dir }}"
     state: directory
 
 - name: install libxml & libxslt
