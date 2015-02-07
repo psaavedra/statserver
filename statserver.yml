@@ -37,6 +37,7 @@
     - postgres
     - graphite
     - nodejs
+    - npm
     - statsd
     - sentry
 

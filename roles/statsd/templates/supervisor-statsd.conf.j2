@@ -1,5 +1,5 @@
 [program:statsd]
-command=/usr/local/bin/node /opt/statsd/stats.js /opt/statsd/local-config.js
+command=/usr/local/bin/statsd /opt/statsd/config.js
 process_name=%(program_name)s
 autostart=true
 autorestart=true

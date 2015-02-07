@@ -1,5 +1,5 @@
-- name: install statsd from GitHub
-  git: repo=https://github.com/etsy/statsd.git dest=/opt/statsd update=no
+- name: install statsd
+  npm: name=statsd global=yes
 
 - name: configure statsd
   template: src=config.js.j2 dest=/opt/statsd/config.js
