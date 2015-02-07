@@ -1,2 +1,4 @@
 - name: install
   pip: name=whisper
+  virtualenv: "{{ venv }}"
+  virtualenv_site_packages: no

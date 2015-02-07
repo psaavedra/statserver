@@ -1,5 +1,7 @@
 - name: install
   pip: name=carbon
+  virtualenv: "{{ venv }}"
+  virtualenv_site_packages: no
 
 - name: configure cache
   template: src=carbon.conf.j2
