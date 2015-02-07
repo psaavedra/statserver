@@ -31,7 +31,7 @@
       project: default
       platform: python
   roles:
-    - common
+    - essential
     - supervisor
     - apache2
     - role: bennojoy.nginx
