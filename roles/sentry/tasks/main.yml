@@ -50,12 +50,3 @@
   notify:
     - restart nginx
     - reload supervisor
-
-# This is a bit of a hack to create a superuser automatically without interactive input. TODO: Create a proper python script for this!
-- name: create admin user
-  environment:
-    sentry_conf: /etc/sentry/conf.py
-  command: "{{ venv }}/exec python -c \"from sentry.utils.runner import configure; configure(); from django.db import DEFAULT_DB_ALIAS as database; from sentry.models import User; User.objects.db_manager(database).create_superuser('{{ superuser_sentry.username }}', '{{ superuser_sentry.email }}', '{{ superuser_sentry.password }}')\""
-  notify:
-    - restart nginx
-    - reload supervisor

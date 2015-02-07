@@ -28,6 +28,10 @@
       username: admin
       email: admin@example.com
       password: admin
+      organization: default
+      team: default
+      project: default
+      platform: python
   roles:
     - common
     - python
