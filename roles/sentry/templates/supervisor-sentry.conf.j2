@@ -1,6 +1,5 @@
 [program:sentry]
-command=/opt/sentry/ve/bin/sentry --config=/opt/sentry/conf.py start http
-environment=PATH="/opt/sentry/ve/bin"
+command={{ venv }}/exec sentry --config={{ sentry_dir }}/conf.py start http
 autostart=true
 autorestart=true
 redirect_stderr=true

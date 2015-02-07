@@ -1,3 +1,4 @@
+sentry_dir: /opt/sentry
 venv: /opt/sentry/ve
 nginx_user: www-data
 nginx_group: www-data
