@@ -11,7 +11,7 @@
 - name: install sentry and create virtualenv if needed
   pip:
     name: sentry[postgres]
-    virtualenv: /var/sentry/ve
+    virtualenv: {{ venv }}
     virtualenv_site_packages: no
 
 - name: copy sentry configuration
@@ -40,17 +40,18 @@
   notify:
     - reload supervisor
 
-# Shell executable needs to be changed because Ubuntu uses /bin/dash when invoking /bin/sh, which doesn't support source.
-# see http://stackoverflow.com/questions/13702425/source-command-not-found-in-sh-shell
+- name: create exec script in venv
+  template: src=venv_exec.j2 dest={{ venv }}/exec mode=755
+
 - name: sentry upgrade
-  action: shell source ve/bin/activate && sentry --config=/etc/sentry/conf.py upgrade executable=/bin/bash chdir=/var/sentry
+  command: {{ venv }}/exec sentry --config=/etc/sentry/conf.py upgrade
   notify:
     - restart nginx
     - reload supervisor
 
 # This is a bit of a hack to create a superuser automatically without interactive input. TODO: Create a proper python script for this!
 - name: create admin user
-  action: shell source ve/bin/activate && export SENTRY_CONF=/etc/sentry/conf.py && python -c "from sentry.utils.runner import configure; configure(); from django.db import DEFAULT_DB_ALIAS as database; from sentry.models import User; User.objects.db_manager(database).create_superuser('{{ superuser_sentry.username }}', '{{ superuser_sentry.email }}', '{{ superuser_sentry.password }}')" executable=/bin/bash chdir=/var/sentry
+  command: {{ venv }}/exec export SENTRY_CONF=/etc/sentry/conf.py && python -c "from sentry.utils.runner import configure; configure(); from django.db import DEFAULT_DB_ALIAS as database; from sentry.models import User; User.objects.db_manager(database).create_superuser('{{ superuser_sentry.username }}', '{{ superuser_sentry.email }}', '{{ superuser_sentry.password }}')"
   notify:
     - restart nginx
     - reload supervisor
