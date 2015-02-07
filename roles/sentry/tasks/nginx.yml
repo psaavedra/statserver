@@ -3,6 +3,7 @@
             dest=/etc/nginx/sites-available/sentry.conf
             owner={{ nginx_user }}
             group={{ nginx_group }}
+  register: sentry_ngingx
 
 - name: link nginx configuration
   file: src=/etc/nginx/sites-available/sentry.conf
@@ -10,5 +11,6 @@
         state=link
         owner={{ nginx_user }}
         group={{ nginx_group }}
+  when: sentry_ngingx.changed
   notify:
     - restart nginx
