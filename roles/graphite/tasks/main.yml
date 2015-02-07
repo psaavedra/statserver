@@ -6,7 +6,6 @@
     - memcached
     - libcairo2-dev
     - libffi-dev # for cairocffi
-  when: ansible_os_family == "Debian"
 
 - name: ensure graphite directory exists
   file:

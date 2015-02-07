@@ -4,4 +4,3 @@
   with_items:
     - build-essential
     - git
-  when: ansible_os_family == "Debian"

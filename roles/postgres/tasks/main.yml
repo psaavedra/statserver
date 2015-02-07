@@ -5,7 +5,6 @@
     - postgresql-contrib
     - postgresql-client
     - libpq-dev
-  when: ansible_os_family == "Debian"
 
 - name: install postgresql python bindings
   pip: name=psycopg2

@@ -1,6 +1,5 @@
 - name: install supervisor debian/ubuntu
   apt: pkg=supervisor state=latest
-  when: ansible_os_family == "Debian"
 
 - name: ensure supervisor conf.d directory exists
   file:
