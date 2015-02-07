@@ -1,10 +1,7 @@
 - name: ensure directories exist
   file:
-    path: "{{ item }}"
+    path: /opt/sentry/
     state: directory
-  with_items:
-    - /etc/sentry/
-    - /var/sentry/
 
 - name: install libxml & libxslt
   apt: name={{ item }}
@@ -21,11 +18,11 @@
 
 - name: copy configuration
   template: src=sentry_conf.py.j2
-            dest=/etc/sentry/conf.py
+            dest=/opt/sentry/conf.py
   notify: restart nginx
 
 - name: upgrade
-  command: "{{ venv }}/exec sentry --config=/etc/sentry/conf.py upgrade"
+  command: "{{ venv }}/exec sentry --config=/opt/sentry/conf.py upgrade"
   notify:
     - restart nginx
     - reload supervisor

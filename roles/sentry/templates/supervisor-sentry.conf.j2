@@ -1,6 +1,6 @@
 [program:sentry]
-command=/var/sentry/ve/bin/sentry --config=/etc/sentry/conf.py start http
-environment=PATH="/var/sentry/ve/bin"
+command=/opt/sentry/ve/bin/sentry --config=/opt/sentry/conf.py start http
+environment=PATH="/opt/sentry/ve/bin"
 autostart=true
 autorestart=true
 redirect_stderr=true

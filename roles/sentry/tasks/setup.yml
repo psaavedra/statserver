@@ -1,9 +1,9 @@
 - name: deploy setup.py
-  template: src=setup.py.j2 dest=/var/sentry/setup.py mode=0755
+  template: src=setup.py.j2 dest=/opt/sentry/setup.py mode=0755
   register: sentry_setup
 
 - name: run setup.py
-  command: "{{ venv }}/exec /var/sentry/setup.py"
+  command: "{{ venv }}/exec /opt/sentry/setup.py"
   when: sentry_setup.changed
   notify:
     - restart nginx
