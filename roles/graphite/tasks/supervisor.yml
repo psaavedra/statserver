@@ -1,4 +1,4 @@
-- name: copy supervisor configuration for graphite
+- name: copy supervisor configuration
   template: src=supervisor-graphite.conf.j2
             dest=/etc/supervisor/conf.d/graphite.conf
   notify:
