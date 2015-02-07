@@ -2,8 +2,6 @@
 - hosts: all
   sudo: True
   vars:
-    apache2:
-      port: 8080
     graphite:
       timezone: Etc/UTC
       server: graphite.local
