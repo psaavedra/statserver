@@ -1,8 +1,11 @@
 - name: install statsd
   npm: name=statsd global=yes
 
+- name: ensure statsd directory exists
+  file: path=/etc/statsd/ state=directory
+
 - name: configure statsd
-  template: src=config.js.j2 dest=/opt/statsd/config.js
+  template: src=config.js.j2 dest=/etc/statsd/config.js
 
 - name: copy supervisor configuration for statsd
   template: src=supervisor-statsd.conf.j2 dest=/etc/supervisor/conf.d/statsd.conf
