@@ -32,10 +32,9 @@
       platform: python
   roles:
     - common
-
     - supervisor
     - apache2
-    - role: nginx
+    - role: bennojoy.nginx
       nginx_sites: none
     - postgresql
     - carbon
