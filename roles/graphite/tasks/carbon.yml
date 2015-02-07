@@ -3,12 +3,15 @@
 
 - name: configure cache
   template: src=carbon.conf.j2
-            dest=/opt/graphite/conf/carbon.conf mode=0644
+            dest=/opt/graphite/conf/carbon.conf
+            mode=0644
 
 - name: configure storage schema
   template: src=storage-schemas.conf.j2
-            dest=/opt/graphite/conf/storage-schemas.conf mode=0644
+            dest=/opt/graphite/conf/storage-schemas.conf
+            mode=0644
 
 - name: configure storage aggregation
   template: src=storage-aggregation.conf.j2
-            dest=/opt/graphite/conf/storage-aggregation.conf mode=0644
+            dest=/opt/graphite/conf/storage-aggregation.conf
+            mode=0644
