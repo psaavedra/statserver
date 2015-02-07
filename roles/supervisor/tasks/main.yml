@@ -11,5 +11,5 @@
     path: /var/log/supervisor
     state: directory
 
-- name: Copy supervisor global configuration
+- name: copy supervisor global configuration
   copy: src=supervisord.conf dest=/etc/supervisord.conf
