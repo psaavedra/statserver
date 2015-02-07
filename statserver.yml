@@ -39,9 +39,7 @@
     - postgresql
     - carbon
     - graphite
+    - statsd
 #    - python
-#    - nodejs
-#    - npm
-#    - statsd
 #    - sentry
 
