@@ -1,8 +1,8 @@
-# -*- coding: utf-8 -*-
-#
 #!{{ venv }}/bin/python
 #
 # Automatically creates a default superuser, team and project.
+# -*- coding: utf-8 -*-
+#
 
 import os
 
