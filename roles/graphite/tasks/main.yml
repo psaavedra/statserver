@@ -8,15 +8,6 @@
     - libffi-dev # for cairocffi
   when: ansible_os_family == "Debian"
 
-- name: install required packages for graphite redhat/centos
-  yum: pkg={{ item }} state=latest
-  with_items:
-    - memcached
-    - cairo-devel
-    - bitmap-fonts
-    - libffi-devel # for cairocffi
-  when: ansible_os_family == "RedHat"
-
 - name: ensure graphite directory exists
   file:
     path: /opt/graphite/

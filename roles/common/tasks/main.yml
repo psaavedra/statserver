@@ -1,26 +1,7 @@
 ---
-- name: install epel-repo rpm RHEL6
-  yum: name=http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
-       state=present
-  when: ansible_os_family == 'RedHat' and ansible_distribution_version|int == 6
-
-- name: install epel-repo rpm RHEL5
-  yum: name=http://download.fedoraproject.org/pub/epel/5/i386/epel-release-5-4.noarch.rpm
-       state=present
-  when: ansible_os_family == 'RedHat' and ansible_distribution_version|int == 5
-
 - name: install common packages debian/ubuntu
   apt: pkg={{ item }} state=latest update_cache=yes
   with_items:
     - build-essential
     - git
   when: ansible_os_family == "Debian"
-
-# @development is a groupinstall, see https://coderwall.com/p/k6goya
-- name: install common packages redhat/centos
-  yum: pkg={{ item }} state=latest
-  with_items:
-    - '@development'
-    - git
-  when: ansible_os_family == "RedHat"
-
