@@ -1,8 +1,10 @@
 - name: ensure sentry directory exists
   file:
-    path: {{ item }}
+    path: "{{ item }}"
     state: directory
-  with_items: [/etc/sentry/,/var/sentry/]
+  with_items:
+    - /etc/sentry/
+    - /var/sentry/
 
 - name: install libxml & libxslt
   apt: name={{ item }}
@@ -11,7 +13,7 @@
 - name: install sentry and create virtualenv if needed
   pip:
     name: sentry[postgres]
-    virtualenv: {{ venv }}
+    virtualenv: "{{ venv }}"
     virtualenv_site_packages: no
 
 - name: copy sentry configuration
@@ -44,7 +46,7 @@
   template: src=venv_exec.j2 dest={{ venv }}/exec mode=755
 
 - name: sentry upgrade
-  command: {{ venv }}/exec sentry --config=/etc/sentry/conf.py upgrade
+  command: "{{ venv }}/exec sentry --config=/etc/sentry/conf.py upgrade"
   notify:
     - restart nginx
     - reload supervisor
@@ -53,7 +55,7 @@
 - name: create admin user
   environment:
     sentry_conf: /etc/sentry/conf.py
-  command: {{ venv }}/exec python -c "from sentry.utils.runner import configure; configure(); from django.db import DEFAULT_DB_ALIAS as database; from sentry.models import User; User.objects.db_manager(database).create_superuser('{{ superuser_sentry.username }}', '{{ superuser_sentry.email }}', '{{ superuser_sentry.password }}')"
+  command: "{{ venv }}/exec python -c \"from sentry.utils.runner import configure; configure(); from django.db import DEFAULT_DB_ALIAS as database; from sentry.models import User; User.objects.db_manager(database).create_superuser('{{ superuser_sentry.username }}', '{{ superuser_sentry.email }}', '{{ superuser_sentry.password }}')\""
   notify:
     - restart nginx
     - reload supervisor
