@@ -1,0 +1,5 @@
+- name: upgrade
+  command: "{{ venv }}/bin/exec sentry --config={{ sentry_dir }}/conf.py upgrade"
+  notify:
+    - restart nginx
+    - reload supervisor

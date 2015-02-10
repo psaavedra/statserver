@@ -1,0 +1,8 @@
+- name: deploy setup.py
+  template: src=sentry-setup.py.j2 dest="{{ sentry_dir }}/setup.py" mode=0755
+
+- name: run setup.py
+  command: "{{ venv }}/bin/exec {{ sentry_dir }}/setup.py"
+  notify:
+    - restart nginx
+    - reload supervisor

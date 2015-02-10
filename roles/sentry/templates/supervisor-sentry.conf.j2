@@ -1,5 +1,13 @@
-[program:sentry]
-command={{ venv }}/exec sentry --config={{ sentry_dir }}/conf.py start http
+[program:sentry-web]
+directory={{ sentry_dir }}
+command={{ venv }}/bin/exec sentry --config={{ sentry_dir }}/conf.py start http
+autostart=true
+autorestart=true
+redirect_stderr=true
+
+[program:sentry-worker]
+directory={{ sentry_dir }}
+command={{ venv }}/bin/exec sentry --config={{ sentry_dir }}/conf.py celery worker -B
 autostart=true
 autorestart=true
 redirect_stderr=true

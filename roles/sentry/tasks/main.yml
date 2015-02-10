@@ -1,32 +1,6 @@
-- name: ensure directories exist
-  file:
-    path: "{{ sentry_dir }}"
-    state: directory
-
-- name: install libxml & libxslt
-  apt: name={{ item }}
-  with_items: [libxml2-dev,libxslt1-dev]
-
-- name: install and create virtualenv if needed
-  pip:
-    name: sentry[postgres]
-    virtualenv: "{{ venv }}"
-    virtualenv_site_packages: no
-
-- name: create exec script in venv
-  template: src=venv_exec.j2 dest={{ venv }}/exec mode=755
-
-- name: copy configuration
-  template: src=sentry_conf.py.j2
-            dest="{{ sentry_dir }}/conf.py"
-  notify: restart nginx
-
-- name: upgrade
-  command: "{{ venv }}/exec sentry --config={{ sentry_dir }}/conf.py upgrade"
-  notify:
-    - restart nginx
-    - reload supervisor
-
-- include: setup.yml
+- include: sentry.yml
+- include: postgresql.yml
+- include: sentry_upgrade.yml
+- include: sentry_setup.yml
 - include: nginx.yml
 - include: supervisor.yml

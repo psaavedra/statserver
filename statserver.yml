@@ -34,10 +34,11 @@
     - apache2
     - role: bennojoy.nginx
       nginx_sites: none
+    - role: DavidWittman.redis
+      redis_bind: 127.0.0.1
     - postgresql
     - carbon
     - graphite
     - statsd
-#    - python
-#    - sentry
-
+    - python
+    - sentry

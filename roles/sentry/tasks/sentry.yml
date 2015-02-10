@@ -1,0 +1,21 @@
+- name: ensure directory exists
+  file:
+    path: "{{ sentry_dir }}"
+    state: directory
+
+- name: install libxml & libxslt
+  apt: name={{ item }}
+  with_items: [libxml2-dev, libxslt1-dev]
+
+- name: install and create virtualenv if needed
+  pip:
+    name: sentry[postgres]
+    virtualenv: "{{ venv }}"
+
+- name: create exec script in venv
+  template: src=venv_exec.j2 dest="{{ venv }}/bin/exec" mode=755
+
+- name: copy configuration
+  template: src=sentry-conf.py.j2
+            dest="{{ sentry_dir }}/conf.py"
+  notify: restart nginx
