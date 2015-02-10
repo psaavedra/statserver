@@ -1,6 +1,15 @@
 ---
 - hosts: all
-  sudo: True
+  sudo: true
+  roles:
+    - essential
+    - supervisor
+    - role: bennojoy.nginx
+      nginx_sites: none
+    - postgresql
+
+- hosts: graphiteservers
+  sudo: true
   vars:
     graphite:
       timezone: Etc/UTC
@@ -12,6 +21,15 @@
         password: graphite
     carbon:
       ssl: no
+  roles:
+    - apache2
+    - carbon
+    - graphite
+    - statsd
+
+- hosts: sentryservers
+  sudo: true
+  vars:
     sentry:
       server: sentry.local
       url: http://sentry.local
@@ -29,16 +47,7 @@
       project: default
       platform: python
   roles:
-    - essential
-    - supervisor
-    - apache2
-    - role: bennojoy.nginx
-      nginx_sites: none
     - role: DavidWittman.redis
       redis_bind: 127.0.0.1
-    - postgresql
-    - carbon
-    - graphite
-    - statsd
     - python
     - sentry
