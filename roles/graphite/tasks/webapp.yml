@@ -6,5 +6,5 @@
             dest=/etc/graphite/local_settings.py
             mode=0644
 
-- name: syncdb for graphite
+- name: syncdb
   shell: graphite-manage syncdb --noinput

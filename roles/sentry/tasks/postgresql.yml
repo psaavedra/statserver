@@ -1,4 +1,4 @@
-- name: setup database
+- name: postgresql | setup database
   sudo_user: postgres
   postgresql_db:
     db: "{{ sentry.db.name }}"
@@ -8,7 +8,7 @@
     template: 'template0'
     state: present
 
-- name: grant access to database
+- name: postgresql | grant access to database
   sudo_user: postgres
   postgresql_user:
     db: "{{ sentry.db.name }}"

@@ -1,4 +1,4 @@
-- name: copy supervisor configuration
+- name: supervisor | copy configuration
   template: src=supervisor-sentry.conf.j2
             dest=/etc/supervisor/conf.d/sentry.conf
   notify:

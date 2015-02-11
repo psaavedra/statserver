@@ -1,11 +1,11 @@
-- name: copy nginx configuration
+- name: nginx | copy configuration
   template: src=nginx-sentry.conf.j2
             dest=/etc/nginx/sites-available/sentry.conf
             owner={{ nginx_user }}
             group={{ nginx_group }}
   register: sentry_ngingx
 
-- name: link nginx configuration
+- name: nginx | link configuration
   file: src=/etc/nginx/sites-available/sentry.conf
         dest=/etc/nginx/sites-enabled/sentry.conf
         state=link

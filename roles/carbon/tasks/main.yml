@@ -16,11 +16,10 @@
             dest=/etc/carbon/storage-aggregation.conf
             mode=0644
 
-
 - name: enable carbon
   copy: content='CARBON_CACHE_ENABLED=true'
         dest=/etc/default/graphite-carbon
         mode=0644
 
-- name: start service & enable on boot
+- name: ensure is running
   service: name=carbon-cache state=started enabled=yes

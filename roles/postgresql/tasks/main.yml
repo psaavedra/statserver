@@ -7,5 +7,5 @@
 - name: install python bindings
   apt: name=python-psycopg2 state=installed
 
-- name: start service & enable on boot
+- name: ensure is running
   service: name=postgresql state=restarted enabled=yes

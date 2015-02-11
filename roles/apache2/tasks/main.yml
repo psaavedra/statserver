@@ -10,5 +10,5 @@
 - name: disable the default host file
   command: sudo a2dissite 000-default
 
-- name: start service & enable on boot
+- name: ensure is running
   service: name=apache2 state=started enabled=yes
